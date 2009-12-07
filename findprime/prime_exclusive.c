@@ -33,7 +33,7 @@ void* prime_th(void* _arg) {
 void* do_job(void* _arg) {
   prime_arg_t arg = _arg;
   int j = 0;
-#if 1
+#if 0
   printf("JOBS = %d\n", arg[0].jobs);
 #endif
   while(j < arg[0].jobs) {
@@ -64,7 +64,7 @@ parallel_prime_mutex(int start, int end, int nthreads, int divide) {
     args[j].sum = 0;
     args[j].stolen = 0;
     args[j].jobs = divide;
-#if 1
+#if 0
     printf("Job %4d: %10d - %10d : %10d\n", j, args[j].start, args[j].end, args[j].end - args[j].start);
 #endif
   }
