@@ -73,7 +73,9 @@ parallel_prime_mutex(int start, int end, int nthreads, int divide) {
   }
   for (t = 0; t < nthreads; t++) {
     pthread_join(threads[t], NULL);
+#if 0
     printf("JOIN %d(%ld)\n", t, threads[t]);
+#endif
   }
   int s = 0;
   for (j = 0; j < divide; j++) {
