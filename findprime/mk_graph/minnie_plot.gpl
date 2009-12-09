@@ -1,0 +1,54 @@
+set term post eps enh color
+
+# Exclusive on minnie
+set output "minnie_exc_jobs.eps"
+set title "Parallel prime search with Load-Balance (32 core)"
+set logscale x
+set xlabel "# of Jobs"
+set ylabel "Elapsed Time[sec]"
+plot "exc_minnie_div_nth.txt" index 0 using 2:6 ti "1 thread" w li, \
+     "exc_minnie_div_nth.txt" index 1 using 2:6 ti "2 threads" w li, \
+     "exc_minnie_div_nth.txt" index 2 using 2:6 ti "4 threads" w li, \
+     "exc_minnie_div_nth.txt" index 3 using 2:6 ti "8 threads" w li, \
+     "exc_minnie_div_nth.txt" index 4 using 2:6 ti "16 threads" w li, \
+     "exc_minnie_div_nth.txt" index 5 using 2:6 ti "32 threads" w li, \
+     "exc_minnie_div_nth.txt" index 6 using 2:6 ti "64 threads" w li, \
+     "exc_minnie_div_nth.txt" index 7 using 2:6 ti "128 threads" w li
+
+set output "minnie_exc_jobs_scale.eps"
+set title "Scalability of parallel prime search with Load-Balance (32 core)"
+set logscale x
+set xlabel "# of Jobs"
+set ylabel "Scalability"
+plot "exc_minnie_div_nth.txt" index 0 using 2:(39.902019/$6) ti "1 thread" w li, \
+     "exc_minnie_div_nth.txt" index 1 using 2:(39.970774/$6) ti "2 threads" w li, \
+     "exc_minnie_div_nth.txt" index 2 using 2:(39.765411/$6) ti "4 threads" w li, \
+     "exc_minnie_div_nth.txt" index 3 using 2:(39.764512/$6) ti "8 threads" w li, \
+     "exc_minnie_div_nth.txt" index 4 using 2:(39.766768/$6) ti "16 threads" w li, \
+     "exc_minnie_div_nth.txt" index 5 using 2:(39.767087/$6) ti "32 threads" w li, \
+     "exc_minnie_div_nth.txt" index 6 using 2:(39.775357/$6) ti "64 threads" w li, \
+     "exc_minnie_div_nth.txt" index 7 using 2:(39.772317/$6) ti "128 threads" w li
+
+set output "minnie_exc_nth.eps"
+set title "Parallel prime search with Load-Balance (32 core)"
+unset logscale x
+set xlabel "# of Threads"
+set ylabel "Elapsed Time[sec]"
+plot "exc_minnie_div_jobs.txt" index 0 using 1:6 ti "1 job" w li, \
+     "exc_minnie_div_jobs.txt" index 1 using 1:6 ti "10 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 2 using 1:6 ti "100 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 3 using 1:6 ti "1000 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 4 using 1:6 ti "10000 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 5 using 1:6 ti "100000 jobs" w li
+
+set output "minnie_exc_nth_scale.eps"
+set title "Scalability of parallel prime search with Load-Balance (32 core)"
+unset logscale x
+set xlabel "# of Threads"
+set ylabel "Scalability"
+plot "exc_minnie_div_jobs.txt" index 0 using 1:(39.902019/$6) ti "1 job" w li, \
+     "exc_minnie_div_jobs.txt" index 1 using 1:(39.921942/$6) ti "10 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 2 using 1:(39.938825/$6) ti "100 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 3 using 1:(39.769759/$6) ti "1000 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 4 using 1:(39.947953/$6) ti "10000 jobs" w li, \
+     "exc_minnie_div_jobs.txt" index 5 using 1:(40.101518/$6) ti "100000 jobs" w li
