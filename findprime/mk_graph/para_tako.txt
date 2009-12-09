@@ -1,0 +1,6 @@
+1 664579 primes in 19.587442 sec
+2 664579 primes in 12.061222 sec
+4 664579 primes in 6.433322 sec
+8 664579 primes in 3.321070 sec
+16 664579 primes in 2.712832 sec
+

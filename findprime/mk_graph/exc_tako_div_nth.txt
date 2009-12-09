@@ -1,0 +1,50 @@
+# divide by nth
+# NTH JOBS RESULT primes in TIME sec
+
+
+1 1 664579 primes in 19.601255 sec
+1 10 664579 primes in 19.601613 sec
+1 100 664579 primes in 19.601303 sec
+1 1000 664579 primes in 19.598691 sec
+1 10000 664579 primes in 19.602296 sec
+1 100000 664579 primes in 19.614233 sec
+
+
+2 1 664579 primes in 19.600067 sec
+2 10 664579 primes in 10.339984 sec
+2 100 664579 primes in 9.860585 sec
+2 1000 664579 primes in 9.802078 sec
+2 10000 664579 primes in 9.802987 sec
+2 100000 664579 primes in 9.823692 sec
+
+
+4 1 664579 primes in 19.601442 sec
+4 10 664579 primes in 6.113969 sec
+4 100 664579 primes in 5.001781 sec
+4 1000 664579 primes in 4.909246 sec
+4 10000 664579 primes in 4.908017 sec
+4 100000 664579 primes in 4.923335 sec
+
+
+8 1 664579 primes in 19.597424 sec
+8 10 664579 primes in 3.970486 sec
+8 100 664579 primes in 2.595677 sec
+8 1000 664579 primes in 2.467972 sec
+8 10000 664579 primes in 2.469232 sec
+8 100000 664579 primes in 2.530139 sec
+
+
+16 1 664579 primes in 19.600360 sec
+16 10 664579 primes in 2.864545 sec
+16 100 664579 primes in 2.532259 sec
+16 1000 664579 primes in 2.480804 sec
+16 10000 664579 primes in 2.470423 sec
+16 100000 664579 primes in 2.510205 sec
+
+
+32 1 664579 primes in 19.600337 sec
+32 10 664579 primes in 3.103838 sec
+32 100 664579 primes in 2.501178 sec
+32 1000 664579 primes in 2.469816 sec
+32 10000 664579 primes in 2.465163 sec
+32 100000 664579 primes in 2.903535 sec

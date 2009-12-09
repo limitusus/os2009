@@ -1,0 +1,63 @@
+set term post eps enh color
+
+# Para on tako
+set output "prime_para.eps"
+set title "Parallel prime search (8 core)"
+set xlabel "# of threads"
+set ylabel "Elapsed Time [sec]"
+plot "para_tako.txt" u 1:5 title "Time[sec]" w li
+
+set output "prime_para_scale.eps"
+set title "Scalability of parallel prime search (8 core)"
+set xlabel "# of threads"
+set ylabel "Scalability"
+plot "para_tako.txt" u 1:(19.587442/$5) notitle w li
+
+# Exclusive on tako
+set output "tako_exc_jobs.eps"
+set title "Parallel prime search with Load-Balance (8 core)"
+set logscale x
+set xlabel "# of Jobs"
+set ylabel "Elapsed Time[sec]"
+plot "exc_tako_div_nth.txt" index 0 using 2:6 ti "1 thread" w li, \
+     "exc_tako_div_nth.txt" index 1 using 2:6 ti "2 threads" w li, \
+     "exc_tako_div_nth.txt" index 2 using 2:6 ti "4 threads" w li, \
+     "exc_tako_div_nth.txt" index 3 using 2:6 ti "8 threads" w li, \
+     "exc_tako_div_nth.txt" index 4 using 2:6 ti "16 threads" w li, \
+     "exc_tako_div_nth.txt" index 5 using 2:6 ti "32 threads" w li
+
+set output "tako_exc_jobs_scale.eps"
+set title "Scalability of parallel prime search with Load-Balance (8 core)"
+set logscale x
+set xlabel "# of Jobs"
+set ylabel "Scalability"
+plot "exc_tako_div_nth.txt" index 0 using 2:(19.601255/$6) ti "1 thread" w li, \
+     "exc_tako_div_nth.txt" index 1 using 2:(19.600067/$6) ti "2 threads" w li, \
+     "exc_tako_div_nth.txt" index 2 using 2:(19.601442/$6) ti "4 threads" w li, \
+     "exc_tako_div_nth.txt" index 3 using 2:(19.597424/$6) ti "8 threads" w li, \
+     "exc_tako_div_nth.txt" index 4 using 2:(19.600360/$6) ti "16 threads" w li, \
+     "exc_tako_div_nth.txt" index 5 using 2:(19.600337/$6) ti "32 threads" w li
+
+set output "tako_exc_nth.eps"
+set title "Parallel prime search with Load-Balance (8 core)"
+unset logscale x
+set xlabel "# of Threads"
+set ylabel "Elapsed Time[sec]"
+plot "exc_tako_div_jobs.txt" index 0 using 1:6 ti "1 job" w li, \
+     "exc_tako_div_jobs.txt" index 1 using 1:6 ti "10 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 2 using 1:6 ti "100 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 3 using 1:6 ti "1000 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 4 using 1:6 ti "10000 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 5 using 1:6 ti "100000 jobs" w li
+
+set output "tako_exc_nth_scale.eps"
+set title "Scalability of parallel prime search with Load-Balance (8 core)"
+unset logscale x
+set xlabel "# of Threads"
+set ylabel "Scalability"
+plot "exc_tako_div_jobs.txt" index 0 using 1:(19.601255/$6) ti "1 job" w li, \
+     "exc_tako_div_jobs.txt" index 1 using 1:(19.601613/$6) ti "10 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 2 using 1:(19.601303/$6) ti "100 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 3 using 1:(19.598691/$6) ti "1000 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 4 using 1:(19.602296/$6) ti "10000 jobs" w li, \
+     "exc_tako_div_jobs.txt" index 5 using 1:(19.614233/$6) ti "100000 jobs" w li
