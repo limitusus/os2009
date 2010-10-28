@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <Profile/Profiler.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -33,21 +34,24 @@ void* prime_th(void* _arg) {
 }
 
 void* do_job(void* _arg) {
-  prime_arg_t arg = _arg;
-  int j = 0;
+  TAU_REGISTER_THREAD();
+  {
+    prime_arg_t arg = _arg;
+    int j = 0;
 #if 0
-  printf("JOBS = %d\n", arg[0].jobs);
+    printf("JOBS = %d\n", arg[0].jobs);
 #endif
-  while(j < arg[0].jobs) {
-    pthread_mutex_lock(&m);
-    if (arg[j].stolen == 0) {
-      arg[j].stolen = 1;
-      pthread_mutex_unlock(&m);
-      arg[j].sum = check_primes(arg[j].start, arg[j].end);
-    } else {
-      pthread_mutex_unlock(&m);
+    while(j < arg[0].jobs) {
+      pthread_mutex_lock(&m);
+      if (arg[j].stolen == 0) {
+        arg[j].stolen = 1;
+        pthread_mutex_unlock(&m);
+        arg[j].sum = check_primes(arg[j].start, arg[j].end);
+      } else {
+        pthread_mutex_unlock(&m);
+      }
+      j++;
     }
-    j++;
   }
   return NULL;
 }
@@ -86,8 +90,7 @@ int parallel_prime_mutex(int start, int end, int nthreads, int divide) {
   return s;
 }
 
-int check_prime(int n)
-{
+int check_prime(int n) {
   int d;
   for (d = 2; d * d <= n; d++) {
     if (n % d == 0) return 0;
@@ -98,8 +101,7 @@ int check_prime(int n)
   return 1;
 }
 
-int check_primes(int a, int b)
-{
+int check_primes(int a, int b) {
   int n;
   int s = 0;
   for (n = a; n < b; n++) {
@@ -108,8 +110,7 @@ int check_primes(int a, int b)
   return s;
 }
 
-double cur_time()
-{
+double cur_time() {
   struct timeval tp[1];
   gettimeofday(tp, NULL);
   return tp->tv_usec * 1.0E-6 + tp->tv_sec;

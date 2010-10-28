@@ -9,11 +9,10 @@
 #include <assert.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <Profile/Profiler.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-
-int check_primes(int a, int b);
 
 typedef struct prime_arg {
   int start;
@@ -22,9 +21,14 @@ typedef struct prime_arg {
   pthread_t tid;
 }* prime_arg_t;
 
+int check_primes(int a, int b);
+
 void* prime_th(void* _arg) {
-  prime_arg_t arg = _arg;
-  arg->sum = check_primes(arg->start, arg->end);
+  TAU_REGISTER_THREAD();
+  {
+    prime_arg_t arg = _arg;
+    arg->sum = check_primes(arg->start, arg->end);
+  }
   return NULL;
 }
 
@@ -51,8 +55,7 @@ int parallel_prime(int start, int end, int nthreads) {
   return s;
 }
 
-int check_prime(int n)
-{
+int check_prime(int n) {
   int d;
   for (d = 2; d * d <= n; d++) {
     if (n % d == 0) return 0;
@@ -63,8 +66,7 @@ int check_prime(int n)
   return 1;
 }
 
-int check_primes(int a, int b)
-{
+int check_primes(int a, int b) {
   int n;
   int s = 0;
   for (n = a; n < b; n++) {
@@ -73,8 +75,7 @@ int check_primes(int a, int b)
   return s;
 }
 
-double cur_time()
-{
+double cur_time() {
   struct timeval tp[1];
   gettimeofday(tp, NULL);
   return tp->tv_usec * 1.0E-6 + tp->tv_sec;
