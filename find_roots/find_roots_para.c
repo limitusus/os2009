@@ -22,8 +22,6 @@ const double delta = 1.0E-8;
 pthread_mutex_t m_tq;
 pthread_mutex_t m_ca;
 pthread_cond_t c_tq;
-pthread_cond_t c_ca;
-
 
 /* --------------------------------------------
    struct polynomial
@@ -105,6 +103,7 @@ complex_array_t mk_complex_array(int sz)
 /* add an element (complex number) z into array ca */
 void complex_array_add(complex_array_t ca, double _Complex z)
 {
+  pthread_mutex_lock(&m_ca);
   int n = ca->n;
   int i;
   for (i = 0; i < n; i++) {
@@ -124,6 +123,7 @@ void complex_array_add(complex_array_t ca, double _Complex z)
 #endif
     assert(n < ca->sz);
   }
+  pthread_mutex_unlock(&m_ca);
 }
 
 /* Task for a square region */
@@ -505,7 +505,7 @@ complex_array_t find_roots(polynomial_t f)
   // init variables
   pthread_mutex_init(&m_tq, NULL);
   pthread_mutex_init(&m_ca, NULL);
-  pthread_cond_init(&c_ca, NULL);
+  pthread_cond_init(&c_tq, NULL);
   // create threads
   for (i = 0; i < n_workers; i++) {
     pthread_t t;
