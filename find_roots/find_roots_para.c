@@ -10,11 +10,11 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-//#define DBG 0
-
 const double delta = 1.0E-8;
 
-#define DBG 1
+#define DBG 0
+
+#define N_WORKERS 2
 
 /**
  * Pthread synchronization variables
@@ -174,7 +174,6 @@ task taskqueue_dequeue(taskqueue_t tq, complex_array_t ca) {
   if(ca->n == ca->sz - 1) {
     task t;
     t.fin = 1;
-    fprintf(stderr, "noticed ca->n == ca->sz - 1\n");
     pthread_cond_broadcast(&c_tq);
     pthread_mutex_unlock(&m_tq);
     return t;
@@ -497,7 +496,7 @@ complex_array_t find_roots(polynomial_t f)
   }
   R /= f->a[f->n - 1];
   /***************** Parallel ******************************/
-  int n_workers = 2;
+  int n_workers = N_WORKERS;
   pthread_t* ths = (pthread_t*) malloc(sizeof(pthread_t) * n_workers);
   pth_arg* args = (pth_arg*) malloc(sizeof(pth_arg) * n_workers);
   assert(ths);
